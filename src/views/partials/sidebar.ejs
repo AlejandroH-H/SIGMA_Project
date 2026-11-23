@@ -1,0 +1,39 @@
+<%
+  // Rol actual (stub en Fase 0; en Fase 1+ provendrá del usuario autenticado).
+  const rolActual = (typeof usuario !== 'undefined' && usuario && usuario.rol) ? usuario.rol : 'Invitado';
+
+  // Navegación: cada ítem declara los roles que pueden verlo.
+  // 'Invitado' solo ve los ítems base (Fase 0, sin autenticación).
+  const navItems = [
+    { label: 'Estado del sistema', href: '/health', roles: ['Invitado', 'Administrador', 'Gerente Académico', 'Analista'] },
+    { label: 'Dashboard',          href: '/dashboard', roles: ['Administrador', 'Gerente Académico', 'Analista'] },
+    { label: 'Usuarios',           href: '/usuarios',  roles: ['Administrador'] },
+    { label: 'Auditoría',          href: '/bitacora',  roles: ['Administrador'] },
+  ];
+
+  const visibles = navItems.filter((item) => item.roles.includes(rolActual));
+  const rutaActual = (typeof currentPath !== 'undefined') ? currentPath : '';
+%>
+<aside class="flex w-64 shrink-0 flex-col bg-sigma-dark text-sigma-cream">
+  <!-- Imagotipo horizontal (versión negativa sobre fondo verde oscuro) -->
+  <div class="flex items-center gap-3 border-b border-white/10 px-6 py-5">
+    <span class="flex h-9 w-9 items-center justify-center rounded-md bg-sigma-accent font-serif text-lg font-bold text-sigma-dark">S</span>
+    <div class="leading-tight">
+      <div class="font-serif text-xl tracking-wide">SIGMA</div>
+      <div class="text-[10px] uppercase tracking-widest text-sigma-cream/60">Gestión Académica</div>
+    </div>
+  </div>
+
+  <nav class="flex-1 space-y-1 px-3 py-4">
+    <% visibles.forEach((item) => { %>
+      <a href="<%= item.href %>"
+         class="block rounded-md px-3 py-2 text-sm transition-colors <%= item.href === rutaActual ? 'bg-sigma-accent text-sigma-dark font-medium' : 'text-sigma-cream/80 hover:bg-white/10 hover:text-sigma-cream' %>">
+        <%= item.label %>
+      </a>
+    <% }); %>
+  </nav>
+
+  <div class="border-t border-white/10 px-6 py-4 text-xs text-sigma-cream/50">
+    Rol: <%= rolActual %>
+  </div>
+</aside>

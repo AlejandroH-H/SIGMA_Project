@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:16
+    container_name: sigma_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sigma
+      POSTGRES_PASSWORD: sigma_dev_pass
+      POSTGRES_DB: sigma_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - sigma_pgdata:/var/lib/postgresql/data
+      # Scripts generados por `npm run db:prepare`:
+      #   01-init.sql (copia de db/init.sql) y 02-seed.sql (semilla con hash del admin).
+      # Postgres los ejecuta en orden alfabético SOLO en el primer arranque (volumen vacío).
+      - ./db/init-scripts:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sigma -d sigma_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  sigma_pgdata:

@@ -1,0 +1,17 @@
+<%
+  const u = (typeof usuario !== 'undefined' && usuario) ? usuario : { nombre: 'Invitado', rol: 'Invitado' };
+%>
+<header class="flex items-center justify-between border-b border-sigma-dark/10 bg-sigma-cream px-6 py-4">
+  <h1 class="font-serif text-lg text-sigma-dark">
+    <%= typeof title !== 'undefined' ? title : 'SIGMA' %>
+  </h1>
+  <div class="flex items-center gap-3 text-sm">
+    <div class="text-right leading-tight">
+      <div class="font-medium text-sigma-dark"><%= u.nombre %></div>
+      <div class="text-xs text-sigma-dark/60"><%= u.rol %></div>
+    </div>
+    <span class="flex h-9 w-9 items-center justify-center rounded-full bg-sigma-dark text-sm font-medium text-sigma-cream">
+      <%= (u.nombre || '?').charAt(0).toUpperCase() %>
+    </span>
+  </div>
+</header>

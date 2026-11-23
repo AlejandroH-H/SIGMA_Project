@@ -1,0 +1,46 @@
+<%
+  const ok = salud && salud.db === 'ok';
+%>
+<div class="mx-auto max-w-2xl">
+  <div class="rounded-xl border border-sigma-dark/10 bg-white p-6 shadow-sm">
+    <div class="flex items-center gap-3">
+      <span class="inline-flex h-3.5 w-3.5 rounded-full <%= ok ? 'bg-sigma-accent' : 'bg-red-500' %>"></span>
+      <h2 class="font-serif text-xl text-sigma-dark">
+        <%= ok ? 'Sistema operativo' : 'Problema de conexión' %>
+      </h2>
+    </div>
+
+    <p class="mt-2 text-sm text-sigma-dark/70">
+      <% if (ok) { %>
+        La aplicación está conectada correctamente a PostgreSQL.
+      <% } else { %>
+        No fue posible conectar con PostgreSQL. Revisa el contenedor de base de datos.
+      <% } %>
+    </p>
+
+    <dl class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div class="rounded-lg bg-sigma-cream p-4">
+        <dt class="text-xs uppercase tracking-wide text-sigma-dark/50">Base de datos</dt>
+        <dd class="mt-1 font-medium <%= ok ? 'text-sigma-dark' : 'text-red-600' %>">
+          <%= salud.db %>
+        </dd>
+      </div>
+      <div class="rounded-lg bg-sigma-cream p-4">
+        <dt class="text-xs uppercase tracking-wide text-sigma-dark/50">Hora de la DB</dt>
+        <dd class="mt-1 font-medium text-sigma-dark"><%= salud.dbTime || '—' %></dd>
+      </div>
+      <div class="rounded-lg bg-sigma-cream p-4">
+        <dt class="text-xs uppercase tracking-wide text-sigma-dark/50">Node.js</dt>
+        <dd class="mt-1 font-medium text-sigma-dark"><%= salud.node %></dd>
+      </div>
+      <div class="rounded-lg bg-sigma-cream p-4">
+        <dt class="text-xs uppercase tracking-wide text-sigma-dark/50">Hora del servidor</dt>
+        <dd class="mt-1 font-medium text-sigma-dark"><%= salud.serverTime %></dd>
+      </div>
+    </dl>
+
+    <% if (!ok && salud.error) { %>
+      <pre class="mt-4 overflow-x-auto rounded-lg bg-red-50 p-3 text-xs text-red-700"><%= salud.error %></pre>
+    <% } %>
+  </div>
+</div>

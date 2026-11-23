@@ -1,0 +1,20 @@
+# Dependencias
+node_modules/
+
+# Build
+dist/
+
+# Entorno
+.env
+.env.local
+
+# Estilos generados
+public/css/output.css
+
+# Scripts de init generados (incluyen hash del admin)
+db/init-scripts/
+
+# Logs y misc
+npm-debug.log*
+*.log
+.DS_Store

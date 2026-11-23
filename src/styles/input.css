@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+/* ── Tokens del Manual de Identidad SIGMA (Tailwind v4, CSS-first) ──────────
+   Generan utilidades: bg-sigma-dark, text-sigma-accent, bg-sigma-cream,
+   font-serif (titulares) y font-sans (UI/cuerpo). */
+@theme {
+  --color-sigma-dark: #003d2e;
+  --color-sigma-accent: #69b578;
+  --color-sigma-cream: #f8f2f4;
+
+  --font-serif: "Californian FB", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
