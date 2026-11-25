@@ -1,0 +1,43 @@
+<%
+  function fmtFecha(v) { try { return new Date(v).toLocaleString('es-VE'); } catch (e) { return v; } }
+  function detalle(d) {
+    if (d === null || d === undefined) return '';
+    try { return typeof d === 'string' ? d : JSON.stringify(d); } catch (e) { return String(d); }
+  }
+%>
+<div class="mx-auto max-w-5xl">
+  <section class="rounded-xl border border-sigma-dark/10 bg-white p-6 shadow-sm">
+    <h2 class="font-serif text-lg text-sigma-dark">Auditoría — acciones recientes (<%= entradas.length %>)</h2>
+    <p class="mt-1 text-sm text-sigma-dark/60">Registro inmutable de operaciones críticas del sistema.</p>
+
+    <div class="mt-4 overflow-x-auto">
+      <table class="w-full text-left text-sm">
+        <thead>
+          <tr class="border-b border-sigma-dark/10 text-xs uppercase tracking-wide text-sigma-dark/50">
+            <th class="py-2 pr-4">Fecha/Hora</th>
+            <th class="py-2 pr-4">Usuario</th>
+            <th class="py-2 pr-4">Acción</th>
+            <th class="py-2 pr-4">Módulo</th>
+            <th class="py-2 pr-4">Detalles</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (entradas.length === 0) { %>
+            <tr><td colspan="5" class="py-4 text-sigma-dark/50">Sin registros aún.</td></tr>
+          <% } %>
+          <% entradas.forEach((e) => { %>
+            <tr class="border-b border-sigma-dark/5 align-top">
+              <td class="py-2 pr-4 whitespace-nowrap text-sigma-dark/60"><%= fmtFecha(e.fecha_hora) %></td>
+              <td class="py-2 pr-4 text-sigma-dark/80"><%= e.usuario_email || '—' %></td>
+              <td class="py-2 pr-4">
+                <span class="inline-flex rounded-full bg-sigma-dark/5 px-2 py-0.5 text-xs font-medium text-sigma-dark"><%= e.accion %></span>
+              </td>
+              <td class="py-2 pr-4 text-sigma-dark/70"><%= e.modulo || '—' %></td>
+              <td class="py-2 pr-4 font-mono text-xs text-sigma-dark/60"><%= detalle(e.detalles) %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

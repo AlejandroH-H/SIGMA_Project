@@ -1,0 +1,27 @@
+<%
+  const u = (typeof usuario !== 'undefined' && usuario) ? usuario : { nombre: '', rol: '' };
+  const accesos = [
+    { label: 'Estado del sistema', href: '/health', desc: 'Salud de la plataforma y la base de datos.', roles: ['Administrador', 'Gerente Académico', 'Analista'] },
+    { label: 'Usuarios',  href: '/usuarios', desc: 'Alta y gestión de usuarios del sistema.', roles: ['Administrador'] },
+    { label: 'Auditoría', href: '/bitacora', desc: 'Registro de acciones críticas.', roles: ['Administrador'] },
+  ];
+  const visibles = accesos.filter((a) => a.roles.includes(u.rol));
+%>
+<div class="mx-auto max-w-4xl space-y-6">
+  <section class="rounded-xl border border-sigma-dark/10 bg-white p-6 shadow-sm">
+    <h2 class="font-serif text-2xl text-sigma-dark">Bienvenido, <%= u.nombre %></h2>
+    <p class="mt-1 text-sm text-sigma-dark/60">
+      Has iniciado sesión como <span class="font-medium text-sigma-dark"><%= u.rol %></span>.
+    </p>
+  </section>
+
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <% visibles.forEach((a) => { %>
+      <a href="<%= a.href %>"
+         class="block rounded-xl border border-sigma-dark/10 bg-white p-5 shadow-sm transition-colors hover:border-sigma-accent">
+        <div class="font-serif text-lg text-sigma-dark"><%= a.label %></div>
+        <p class="mt-1 text-sm text-sigma-dark/60"><%= a.desc %></p>
+      </a>
+    <% }); %>
+  </div>
+</div>

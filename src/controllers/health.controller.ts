@@ -28,6 +28,6 @@ export async function getHealth(req: Request, res: Response): Promise<void> {
   res.status(httpStatus).render('health', {
     title: 'Estado del sistema',
     salud: payload,
-    usuario: { nombre: 'Invitado', rol: 'Invitado' }, // stub Fase 0 (sin auth aún)
+    usuario: res.locals.usuario ?? { nombre: 'Invitado', rol: 'Invitado' },
   });
 }

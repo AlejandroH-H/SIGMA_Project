@@ -32,9 +32,20 @@ Checklist vivo del proyecto. Marcar cada ítem al completarlo y validar con
   **compatibles** con `bcrypt`, por lo que un futuro cambio a bcrypt nativo validaría los
   mismos hashes. La regla de "hashing con bcrypt" se mantiene a nivel de algoritmo.
 
+## Fase 1: Autenticación, RBAC y Bitácora
+- [x] Usuarios precargados para los 3 actores (admin/gerente/analista) con hash bcryptjs.
+- [x] Login + logout con **JWT en cookie HttpOnly + SameSite=Lax** (`src/lib/jwt.ts`, `auth.controller`).
+- [x] Middlewares de seguridad: `requireAuth`, `requireRole(...)` (RBAC) y carga opcional de sesión.
+- [x] Panel de Administrador: crear usuarios (`<select>` de rol, persiste en `usuarios`) + listado.
+- [x] Visor de bitácora (solo Administrador) y auditoría automática de `LOGIN` y `CREAR_USUARIO`.
+
+> Estado Fase 1: **implementada y validada**. Login inválido→401 sin cookie; admin→302 con
+> cookie HttpOnly/SameSite=Lax; `/usuarios` y `/bitacora` 200 admin / 403 analista; creación de
+> usuario persiste + audita `CREAR_USUARIO`; duplicado→409; logout borra cookie.
+> (`DESACTIVAR_USUARIO` queda para una fase posterior.)
+
 ## Próximas fases (pendientes de planificar)
-- [ ] Fase 1: Autenticación (JWT en cookie HttpOnly, bcrypt, login/logout, bitácora `LOGIN`).
-- [ ] Fase 2: Gestión de usuarios (CRUD con soft-delete, roles, auditoría).
+- [ ] Fase 2: Gestión de usuarios ampliada (desactivar/soft-delete, edición, auditoría).
 - [ ] Fase 3: Carga masiva (multer + csv-parser/xlsx), estudiantes/demanda.
 - [ ] Fase 4: Secciones y rendimiento.
 - [ ] Fase 5: Dashboards analíticos (`/api/metricas/*` + Chart.js).

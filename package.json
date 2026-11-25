@@ -5,7 +5,7 @@
   "private": true,
   "type": "commonjs",
   "scripts": {
-    "db:prepare": "tsx db/generate-admin-hash.ts",
+    "db:prepare": "tsx db/generate-seed-hashes.ts",
     "db:up": "docker compose up -d",
     "db:down": "docker compose down",
     "db:reset": "docker compose down -v && npm run db:prepare && docker compose up -d",
@@ -24,6 +24,7 @@
     "express": "^4.21.2",
     "express-ejs-layouts": "^2.5.1",
     "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.3",
     "pg": "^8.13.1"
   },
   "devDependencies": {
@@ -31,6 +32,7 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/cookie-parser": "^1.4.8",
     "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^22.10.5",
     "@types/pg": "^8.11.10",
     "concurrently": "^9.1.2",

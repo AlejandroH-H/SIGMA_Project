@@ -1,8 +1,8 @@
 -- ============================================================================
 -- SIGMA — Datos semilla
--- NOTA: El token __ADMIN_PASSWORD_HASH__ es reemplazado por `npm run db:prepare`
---       (db/generate-admin-hash.ts) con un hash bcrypt real antes de montar el
---       script en el contenedor. No editar el hash a mano aquí.
+-- NOTA: Los tokens __HASH_ADMIN__ / __HASH_GERENTE__ / __HASH_ANALISTA__ son
+--       reemplazados por `npm run db:prepare` (db/generate-seed-hashes.ts) con
+--       hashes bcrypt reales antes de montar el script. No editar a mano.
 -- ============================================================================
 
 -- Roles ---------------------------------------------------------------------
@@ -11,13 +11,14 @@ INSERT INTO roles (nombre, descripcion) VALUES
   ('Gerente Académico', 'Gestión académica y lectura de todos los dashboards.'),
   ('Analista',          'Análisis de indicadores y proyecciones (solo lectura).');
 
--- Usuario administrador inicial --------------------------------------------
+-- Usuarios precargados (un actor por rol) -----------------------------------
 INSERT INTO usuarios (rol_id, nombre, email, password_hash, activo) VALUES
   ((SELECT id FROM roles WHERE nombre = 'Administrador'),
-   'Administrador SIGMA',
-   'admin@sigma.local',
-   '__ADMIN_PASSWORD_HASH__',
-   TRUE);
+   'Administrador SIGMA', 'admin@sigma.local',    '__HASH_ADMIN__',    TRUE),
+  ((SELECT id FROM roles WHERE nombre = 'Gerente Académico'),
+   'Gerente Académico',   'gerente@sigma.local',  '__HASH_GERENTE__',  TRUE),
+  ((SELECT id FROM roles WHERE nombre = 'Analista'),
+   'Analista de Datos',   'analista@sigma.local', '__HASH_ANALISTA__', TRUE);
 
 -- Cohortes históricas -------------------------------------------------------
 INSERT INTO cohortes (periodo, fecha_inicio, fecha_fin) VALUES

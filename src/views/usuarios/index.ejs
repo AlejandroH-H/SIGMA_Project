@@ -1,0 +1,94 @@
+<%
+  const f = (typeof form !== 'undefined' && form) ? form : {};
+  function fmtFecha(v) { try { return new Date(v).toLocaleString('es-VE'); } catch (e) { return v; } }
+%>
+<div class="mx-auto max-w-5xl space-y-6">
+
+  <% if (typeof exito !== 'undefined' && exito) { %>
+    <div class="rounded-lg border border-sigma-accent/40 bg-sigma-accent/10 px-4 py-3 text-sm text-sigma-dark">
+      <%= exito %>
+    </div>
+  <% } %>
+  <% if (typeof error !== 'undefined' && error) { %>
+    <div class="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+      <%= error %>
+    </div>
+  <% } %>
+
+  <!-- Crear usuario -->
+  <section class="rounded-xl border border-sigma-dark/10 bg-white p-6 shadow-sm">
+    <h2 class="font-serif text-lg text-sigma-dark">Crear usuario</h2>
+    <p class="mt-1 text-sm text-sigma-dark/60">Alta de usuarios con asignación de rol.</p>
+
+    <form method="POST" action="/usuarios" class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div>
+        <label for="nombre" class="block text-sm font-medium text-sigma-dark">Nombre</label>
+        <input type="text" id="nombre" name="nombre" value="<%= f.nombre || '' %>" required
+          class="mt-1 w-full rounded-md border border-sigma-dark/15 px-3 py-2 text-sm outline-none focus:border-sigma-accent focus:ring-2 focus:ring-sigma-accent/30" />
+      </div>
+      <div>
+        <label for="email" class="block text-sm font-medium text-sigma-dark">Email</label>
+        <input type="email" id="email" name="email" value="<%= f.email || '' %>" required
+          class="mt-1 w-full rounded-md border border-sigma-dark/15 px-3 py-2 text-sm outline-none focus:border-sigma-accent focus:ring-2 focus:ring-sigma-accent/30" />
+      </div>
+      <div>
+        <label for="password" class="block text-sm font-medium text-sigma-dark">Contraseña</label>
+        <input type="password" id="password" name="password" required minlength="8"
+          class="mt-1 w-full rounded-md border border-sigma-dark/15 px-3 py-2 text-sm outline-none focus:border-sigma-accent focus:ring-2 focus:ring-sigma-accent/30" />
+      </div>
+      <div>
+        <label for="rolId" class="block text-sm font-medium text-sigma-dark">Rol</label>
+        <select id="rolId" name="rolId" required
+          class="mt-1 w-full rounded-md border border-sigma-dark/15 bg-white px-3 py-2 text-sm outline-none focus:border-sigma-accent focus:ring-2 focus:ring-sigma-accent/30">
+          <option value="" disabled <%= f.rolId ? '' : 'selected' %>>Selecciona un rol…</option>
+          <% roles.forEach((r) => { %>
+            <option value="<%= r.id %>" <%= String(f.rolId) === String(r.id) ? 'selected' : '' %>><%= r.nombre %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="sm:col-span-2">
+        <button type="submit"
+          class="rounded-md bg-sigma-dark px-4 py-2 text-sm font-medium text-sigma-cream transition-colors hover:bg-sigma-accent hover:text-sigma-dark">
+          Crear usuario
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Listado -->
+  <section class="rounded-xl border border-sigma-dark/10 bg-white p-6 shadow-sm">
+    <h2 class="font-serif text-lg text-sigma-dark">Usuarios registrados (<%= usuarios.length %>)</h2>
+    <div class="mt-4 overflow-x-auto">
+      <table class="w-full text-left text-sm">
+        <thead>
+          <tr class="border-b border-sigma-dark/10 text-xs uppercase tracking-wide text-sigma-dark/50">
+            <th class="py-2 pr-4">ID</th>
+            <th class="py-2 pr-4">Nombre</th>
+            <th class="py-2 pr-4">Email</th>
+            <th class="py-2 pr-4">Rol</th>
+            <th class="py-2 pr-4">Estado</th>
+            <th class="py-2 pr-4">Creado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% usuarios.forEach((u) => { %>
+            <tr class="border-b border-sigma-dark/5">
+              <td class="py-2 pr-4 text-sigma-dark/60"><%= u.id %></td>
+              <td class="py-2 pr-4 font-medium text-sigma-dark"><%= u.nombre %></td>
+              <td class="py-2 pr-4 text-sigma-dark/80"><%= u.email %></td>
+              <td class="py-2 pr-4"><%= u.rol %></td>
+              <td class="py-2 pr-4">
+                <% if (u.activo) { %>
+                  <span class="inline-flex items-center gap-1 rounded-full bg-sigma-accent/15 px-2 py-0.5 text-xs text-sigma-dark">Activo</span>
+                <% } else { %>
+                  <span class="inline-flex items-center gap-1 rounded-full bg-sigma-dark/10 px-2 py-0.5 text-xs text-sigma-dark/60">Inactivo</span>
+                <% } %>
+              </td>
+              <td class="py-2 pr-4 text-sigma-dark/60"><%= fmtFecha(u.fecha_creacion) %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

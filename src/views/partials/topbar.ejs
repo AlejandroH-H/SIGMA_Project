@@ -13,5 +13,13 @@
     <span class="flex h-9 w-9 items-center justify-center rounded-full bg-sigma-dark text-sm font-medium text-sigma-cream">
       <%= (u.nombre || '?').charAt(0).toUpperCase() %>
     </span>
+    <% if (u.rol && u.rol !== 'Invitado') { %>
+      <form method="POST" action="/logout">
+        <button type="submit"
+          class="rounded-md border border-sigma-dark/15 px-3 py-1.5 text-xs font-medium text-sigma-dark transition-colors hover:bg-sigma-dark hover:text-sigma-cream">
+          Cerrar sesión
+        </button>
+      </form>
+    <% } %>
   </div>
 </header>

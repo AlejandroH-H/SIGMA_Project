@@ -5,10 +5,10 @@
   // Navegación: cada ítem declara los roles que pueden verlo.
   // 'Invitado' solo ve los ítems base (Fase 0, sin autenticación).
   const navItems = [
-    { label: 'Estado del sistema', href: '/health', roles: ['Invitado', 'Administrador', 'Gerente Académico', 'Analista'] },
-    { label: 'Dashboard',          href: '/dashboard', roles: ['Administrador', 'Gerente Académico', 'Analista'] },
-    { label: 'Usuarios',           href: '/usuarios',  roles: ['Administrador'] },
-    { label: 'Auditoría',          href: '/bitacora',  roles: ['Administrador'] },
+    { label: 'Inicio',             href: '/',         roles: ['Administrador', 'Gerente Académico', 'Analista'] },
+    { label: 'Estado del sistema', href: '/health',   roles: ['Invitado', 'Administrador', 'Gerente Académico', 'Analista'] },
+    { label: 'Usuarios',           href: '/usuarios', roles: ['Administrador'] },
+    { label: 'Auditoría',          href: '/bitacora', roles: ['Administrador'] },
   ];
 
   const visibles = navItems.filter((item) => item.roles.includes(rolActual));
