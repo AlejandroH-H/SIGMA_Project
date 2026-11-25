@@ -38,3 +38,5 @@ export function errorHandler(
     usuario: { nombre: 'Invitado', rol: 'Invitado' },
   });
 }
+
+/** Comentario para aprobar el pull request */
