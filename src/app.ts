@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 
 import healthRoutes from './routes/health.routes';
+import loginRoutes from './routes/login.routes';
 import { errorHandler, notFoundHandler } from './middlewares/errorHandler';
 
 // Raíz del proyecto (funciona tanto con tsx [src] como compilado [dist]).
@@ -37,13 +38,15 @@ export function crearApp(): express.Express {
   app.set('views', path.join(ROOT, 'src', 'views'));
   app.use(expressLayouts);
   app.set('layout', 'layouts/main');
+  
+  app.set('layout', 'layouts/main');
 
   // Estáticos (CSS generado, JS de cliente, imágenes).
   app.use(express.static(path.join(ROOT, 'public')));
 
   // Rutas.
-  app.use('/', healthRoutes);
-  app.get('/', (_req, res) => res.redirect('/health'));
+  app.use('/health', healthRoutes);
+  app.use('/', loginRoutes);
 
   // Manejo de errores (siempre al final).
   app.use(notFoundHandler);

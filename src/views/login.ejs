@@ -1,0 +1,70 @@
+<div class="mx-auto max-w-lg">
+  <div class="rounded-xl border border-sigma-dark/10 bg-white p-6 shadow-sm md:p-10">
+    <!-- Imagotipo SIGMA (misma marca que el sidebar) -->
+    <div class="flex items-center gap-3 border-b border-sigma-dark/10 pb-4">
+      <span class="flex h-9 w-9 items-center justify-center rounded-md bg-sigma-accent font-serif text-lg font-bold text-sigma-dark">S</span>
+      <div class="leading-tight">
+        <div class="font-serif text-xl tracking-wide text-sigma-dark">SIGMA</div>
+        <div class="text-[10px] uppercase tracking-widest text-sigma-dark/50">Gestión Académica</div>
+      </div>
+    </div>
+
+    <h2 class="mt-6 font-serif text-xl text-sigma-dark">Iniciar sesión</h2>
+    <p class="mt-2 text-sm text-sigma-dark/70">
+      Ingresa con tu cuenta institucional para acceder al sistema.
+    </p>
+
+    <form action="#login" method="post" class="mt-6">
+      <div>
+        <label for="email" class="block text-xs uppercase tracking-wide text-sigma-dark/50">
+          Correo institucional
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          autocomplete="username"
+          placeholder="fulano@unerg.edu"
+          class="mt-2 block w-full rounded-md border border-sigma-dark/10 bg-sigma-cream px-4 py-2 text-sm text-sigma-dark placeholder:text-sigma-dark/50 focus:border-sigma-accent focus:outline-none focus:ring-2 focus:ring-sigma-accent/40"
+        />
+      </div>
+
+      <div class="mt-4">
+        <label for="password" class="block text-xs uppercase tracking-wide text-sigma-dark/50">
+          Contraseña
+        </label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          required
+          autocomplete="current-password"
+          placeholder="Dale a tu cuerpo alegria y macarena"
+          class="mt-2 block w-full rounded-md border border-sigma-dark/10 bg-sigma-cream px-4 py-2 text-sm text-sigma-dark placeholder:text-sigma-dark/50 focus:border-sigma-accent focus:outline-none focus:ring-2 focus:ring-sigma-accent/40"
+        />
+      </div>
+
+      <div class="mt-4 flex items-center justify-between gap-3">
+        <label class="flex items-center gap-3 text-sm text-sigma-dark/70">
+          <input type="checkbox" name="recordar" value="1" class="rounded border-sigma-dark/10" />
+          Recordar mi sesión
+        </label>
+        <a href="#recuperar" class="text-sm text-sigma-dark/70 transition-colors hover:text-sigma-dark">
+          ¿Olvidaste tu contraseña?
+        </a>
+      </div>
+
+      <button
+        type="submit"
+        class="mt-6 inline-block w-full rounded-md bg-sigma-dark px-4 py-2 text-sm font-medium text-sigma-cream transition-colors hover:bg-sigma-accent hover:text-sigma-dark"
+      >
+        Ingresar al sistema
+      </button>
+    </form>
+
+    <p class="mt-6 border-t border-sigma-dark/10 pt-4 text-center text-xs text-sigma-dark/60">
+      ¿No tienes acceso? Solicítalo al administrador del sistema.
+    </p>
+  </div>
+</div>
